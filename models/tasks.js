@@ -9,13 +9,17 @@ const Schema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
+  service: {
+    type: String,
+    required: true,
+  },
+explain: {
+    type: String,
+},
   when: {
     type: Date,
     default: Date.now,
   },
-  requirement: {
-    type: String,
-  },
 });
-const Takopoint = mongoose.model("takopoint", Schema);
-module.exports = Takopoint;
+const Tasks = mongoose.model("tasks", Schema);
+module.exports = Tasks;

@@ -23,6 +23,10 @@ const login = require("./commands/login.js");
 const heyFile = require("./commands/hey.js");
 const balance = require("./commands/balance.js");
 const editpoint = require("./commands/editpoint.js");
+const editservice = require("./commands/editservice.js");
+const showservice = require("./commands/showservice.js");
+const use = require("./commands/use.js");
+const tasks = require("./commands/tasks.js");
 client.on(Events.InteractionCreate, async (interaction) => {
   if (interaction.commandName === heyFile.data.name) {
     try {
@@ -67,6 +71,50 @@ client.on(Events.InteractionCreate, async (interaction) => {
   if (interaction.commandName === editpoint.data.name) {
     try {
       await editpoint.execute(interaction);
+    } catch (e) {
+      console.error(e);
+      await interaction.reply({
+        content: "エラーが発生しました",
+        ephemeral: true,
+      });
+    }
+  }
+  if (interaction.commandName === editservice.data.name) {
+    try {
+      await editservice.execute(interaction);
+    } catch (e) {
+      console.error(e);
+      await interaction.reply({
+        content: "エラーが発生しました",
+        ephemeral: true,
+      });
+    }
+  }
+  if (interaction.commandName === showservice.data.name) {
+    try {
+      await showservice.execute(interaction);
+    } catch (e) {
+      console.error(e);
+      await interaction.reply({
+        content: "エラーが発生しました",
+        ephemeral: true,
+      });
+    }
+  }
+  if (interaction.commandName === use.data.name) {
+    try {
+      await use.execute(interaction);
+    } catch (e) {
+      console.error(e);
+      await interaction.reply({
+        content: "エラーが発生しました",
+        ephemeral: true,
+      });
+    }
+  }
+  if(interaction.commandName === tasks.data.name){
+    try {
+      await tasks.execute(interaction);
     } catch (e) {
       console.error(e);
       await interaction.reply({

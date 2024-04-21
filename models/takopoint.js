@@ -5,6 +5,10 @@ const Schema = new mongoose.Schema({
     required: true,
     unique: true,
   },
+  userName: {
+    type: String,
+    required: true,
+  },
   point: {
     type: Number,
     default: 0,

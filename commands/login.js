@@ -11,7 +11,7 @@ module.exports = {
     if (userInfo == null || userInfo == undefined) {
       const today = new Date();
       today.setHours(0, 0, 0, 0);
-      await Takopoint.create({ user: userId, point: 100, lastGetPoint: today });
+      await Takopoint.create({ user: userId, point: 100, lastGetPoint: today, userName: interaction.user.username});
       await interaction.reply("ログインボーナスを受け取りました！");
       return;
     }

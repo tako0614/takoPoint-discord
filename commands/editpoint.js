@@ -37,13 +37,15 @@ module.exports = {
       }
       const userInfo = await takopoint.findOne({ user: interaction.user.id });
       if (userInfo == null || userInfo == undefined) {
+        let point; // pointをブロックの外で定義
         if (interaction.options.getString("purpose") == "add") {
-          const point = interaction.options.getNumber("num");
+          point = interaction.options.getNumber("num"); // 値を設定
         } else {
-          const point = -interaction.options.getNumber("num");
+          point = -interaction.options.getNumber("num"); // 値を設定
         }
-        await takopoint.createF({
-          user: interaction.options.getNumber("user"),
+        await takopoint.create({
+          user: interaction.options.getUser("user").id,
+          userName: interaction.options.getUser("user").username,
           point: point,
         });
         await interaction.reply(
@@ -64,7 +66,7 @@ module.exports = {
           return;
         } else {
           await takopoint.updateOne(
-            { user: interaction.options.getNumber("user") },
+            { user: interaction.options.getUser("user") },
             { point: userInfo.point - interaction.options.getNumber("num") },
           );
           await interaction.reply(
