@@ -13,9 +13,9 @@ const Schema = new mongoose.Schema({
     type: String,
     required: true,
   },
-explain: {
+  explain: {
     type: String,
-},
+  },
   when: {
     type: Date,
     default: Date.now,

@@ -10,9 +10,10 @@ module.exports = {
         .setDescription("ポイントを見るユーザー")
     ),
   async execute(interaction) {
+    console.log(interaction.options.getUser("user"));
     if (
-      interaction.options.getUser.id !== null ||
-      interaction.options.getUser.id !== undefined
+      interaction.options.getUser("user") == null ||
+      interaction.options.getUser("user") == undefined
     ) {
       const userId = interaction.user.id;
       const userInfo = await Takopoint.findOne({ user: userId });
@@ -22,8 +23,9 @@ module.exports = {
       }
       await interaction.reply(`残高は${userInfo.point}です`);
     } else {
-      const userId = interaction.options.getUser.id;
-      const userInfo = await Takopoint.findOne({ user: userId });
+      const userInfo = await Takopoint.findOne({
+        user: interaction.options.getUser("user").id,
+      });
       if (userInfo == null || userInfo == undefined) {
         await interaction.reply("残高は0です");
         return;

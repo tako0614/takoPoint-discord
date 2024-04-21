@@ -27,6 +27,7 @@ const editservice = require("./commands/editservice.js");
 const showservice = require("./commands/showservice.js");
 const use = require("./commands/use.js");
 const tasks = require("./commands/tasks.js");
+const deleteTask = require("./commands/deleteTasks.js");
 client.on(Events.InteractionCreate, async (interaction) => {
   if (interaction.commandName === heyFile.data.name) {
     try {
@@ -112,9 +113,20 @@ client.on(Events.InteractionCreate, async (interaction) => {
       });
     }
   }
-  if(interaction.commandName === tasks.data.name){
+  if (interaction.commandName === tasks.data.name) {
     try {
       await tasks.execute(interaction);
+    } catch (e) {
+      console.error(e);
+      await interaction.reply({
+        content: "エラーが発生しました",
+        ephemeral: true,
+      });
+    }
+  }
+  if (interaction.commandName === deleteTask.data.name) {
+    try {
+      await deleteTask.execute(interaction);
     } catch (e) {
       console.error(e);
       await interaction.reply({
