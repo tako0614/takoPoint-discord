@@ -39,6 +39,7 @@ module.exports = {
           }
         }
       });
+      console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
       await interaction.reply(sentense);
         return;
     } catch (error) {
