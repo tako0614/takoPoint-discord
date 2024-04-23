@@ -17,7 +17,7 @@ module.exports = {
         return;
       }
       let sentense;
-      const result = (await tasksInfo).map(async (obj) => {
+      tasksInfo.forEach(element => {
         const username = await takopoint.findOne({ user: obj.user });
         obj.userName = username.userName;
         if (obj.explain == null || obj.explain == undefined) {
@@ -38,6 +38,10 @@ module.exports = {
           }
         }
       });
+      /*
+      const result = (await tasksInfo).map(async (obj) => {
+
+      });*/
       console.log(sentense)
       await interaction.reply(sentense);
       return;
