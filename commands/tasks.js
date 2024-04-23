@@ -17,6 +17,7 @@ module.exports = {
         return;
       }
       const tasksString = tasksInfo.map(task => `${task.user} ${task.service} ${task.point}`).join('\n');
+      console.log(takoInfo)
       await interaction.reply(tasksString)
     } catch (error) {
       console.error(error);
