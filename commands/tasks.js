@@ -16,7 +16,10 @@ module.exports = {
         await interaction.reply("タスクはありません");
         return;
       }
-      const tasksString = tasksInfo.map(task => `${task.user} ${task.service} ${task.point}`).join('\n');
+      const tasksString = tasksInfo.map(task => {
+        const userInfo = takopoint.findOne({ user: task.user });
+        return `${userInfo.userName} ${task.service} ${task.point}`
+      }).join('\n');
       console.log(tasksInfo)
       await interaction.reply(tasksString)
     } catch (error) {
