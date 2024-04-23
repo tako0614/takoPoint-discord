@@ -17,8 +17,8 @@ module.exports = {
         return;
       }
       let sentense;
-      tasksInfo.forEach(element => {
-        const username = await takopoint.findOne({ user: obj.user });
+      tasksInfo.forEach(async element => {
+        const username = await takopoint.findOne({ user: element.user });
         obj.userName = username.userName;
         if (obj.explain == null || obj.explain == undefined) {
           if (sentense == undefined) {
