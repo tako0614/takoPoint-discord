@@ -39,7 +39,7 @@ module.exports = {
           }
         }
       });
-      interaction.reply(sentense);
+      await interaction.reply(sentense);
         return;
     } catch (error) {
       console.error(error);
