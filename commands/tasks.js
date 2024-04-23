@@ -11,7 +11,6 @@ module.exports = {
   execute: async function (interaction) {
     try {
       const tasksInfo = await Tasks.find();
-      console.log(tasksInfo);
       //からの配列なら
       if (tasksInfo.length === 0) {
         await interaction.reply("タスクはありません");
@@ -40,7 +39,7 @@ module.exports = {
         }
       });
       console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
-      await interaction.reply("たこたこ");
+      await interaction.reply(sentense);
       return;
     } catch (error) {
       console.error(error);
