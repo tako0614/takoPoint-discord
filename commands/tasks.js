@@ -19,27 +19,27 @@ module.exports = {
       let sentense;
       tasksInfo.forEach(async element => {
         const username = await takopoint.findOne({ user: element.user });
-        obj.userName = username.userName;
-        if (obj.explain == null || obj.explain == undefined) {
+        element.userName = username.userName;
+        if (element.explain == null || element.explain == undefined) {
           if (sentense == undefined) {
-            sentense = obj.userName + "\r" + obj.service + "\r" + obj.point +
-              "\r" + obj.explain + "\r" + obj._id + "\r" + "\r";
+            sentense = element.userName + "\r" + element.service + "\r" + element.point +
+              "\r" + element.explain + "\r" + element._id + "\r" + "\r";
           } else {
-            sentense = sentense + obj.userName + "\r" + obj.service + "\r" +
-              obj.point + "\r" + obj.explain + "\r" + obj._id + "\r" + "\r";
+            sentense = sentense + element.userName + "\r" + element.service + "\r" +
+              element.point + "\r" + element.explain + "\r" + element._id + "\r" + "\r";
           }
         } else {
           if (sentense == undefined) {
-            sentense = obj.userName + "\r" + obj.service + "\r" + obj.point +
-              "\r" + obj._id + "\r" + "\r";
+            sentense = element.userName + "\r" + element.service + "\r" + element.point +
+              "\r" + element._id + "\r" + "\r";
           } else {
-            sentense = sentense + obj.userName + "\r" + obj.service + "\r" +
-              obj.point + "\r" + obj._id + "\r" + "\r";
+            sentense = sentense + element.userName + "\r" + element.service + "\r" +
+              element.point + "\r" + element._id + "\r" + "\r";
           }
         }
       });
       /*
-      const result = (await tasksInfo).map(async (obj) => {
+      const result = (await tasksInfo).map(async (element) => {
 
       });*/
       console.log(sentense)
