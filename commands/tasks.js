@@ -40,8 +40,8 @@ module.exports = {
         }
       });
       console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
-      await interaction.reply(sentense);
-        return;
+      await interaction.reply("たこたこ");
+      return;
     } catch (error) {
       console.error(error);
       await interaction.reply("エラーが発生しました。");
