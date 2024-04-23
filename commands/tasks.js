@@ -38,9 +38,9 @@ module.exports = {
               obj.point + "\r" + obj._id + "\r" + "\r";
           }
         }
-        interaction.reply(sentense);
-        return;
       });
+      interaction.reply(sentense);
+        return;
     } catch (error) {
       console.error(error);
       await interaction.reply("エラーが発生しました。");
