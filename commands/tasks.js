@@ -38,7 +38,7 @@ module.exports = {
           }
         }
       });
-      console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+      console.log(sentense)
       await interaction.reply(sentense);
       return;
     } catch (error) {
