@@ -16,8 +16,8 @@ module.exports = {
         await interaction.reply("タスクはありません");
         return;
       }
-      const tasksString = tasksInfo.map(task => `${task.userName} ${task.service} ${task.point}`).join('\n');
-      await interaction.reply(tasksString);
+      const tasksString = tasksInfo.map(task => `${task.user} ${task.service} ${task.point}`).join('\n');
+      await interaction.reply(tasksString)
     } catch (error) {
       console.error(error);
       await interaction.reply("エラーが発生しました。");
