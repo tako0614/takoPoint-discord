@@ -16,12 +16,14 @@ module.exports = {
         await interaction.reply("タスクはありません");
         return;
       }
-      const tasksString = tasksInfo.map(async task => {
+      const tasksPromises = tasksInfo.map(async task => {
         const userInfo = await takopoint.findOne({ user: task.user }, { userName: 1 });
         console.log(userInfo);
-        return `${userInfo.userName} ${task.service} ${task.point}`
-      }).join('\n');
-      await interaction.reply(tasksString)
+        return `${userInfo.userName} ${task.service} ${task.point}`;
+      });
+      const tasksStrings = await Promise.all(tasksPromises);
+      const tasksString = tasksStrings.join('\n');
+      await interaction.reply(tasksString);
     } catch (error) {
       console.error(error);
       await interaction.reply("エラーが発生しました。");
