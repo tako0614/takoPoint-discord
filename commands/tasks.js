@@ -16,31 +16,8 @@ module.exports = {
         await interaction.reply("タスクはありません");
         return;
       }
-      let sentense = ""; // Initialize sentense as an empty string
-      tasksInfo.forEach(async element => {
-        const username = await takopoint.findOne({ user: element.user });
-        element.userName = username.userName;
-        if (element.explain == null || element.explain == undefined) {
-          if (sentense == "") { // Check if sentense is an empty string
-            sentense = element.userName + "\r" + element.service + "\r" + element.point +
-              "\r" + element.explain + "\r" + element._id + "\r" + "\r";
-          } else {
-            sentense = sentense + element.userName + "\r" + element.service + "\r" +
-              element.point + "\r" + element.explain + "\r" + element._id + "\r" + "\r";
-          }
-        } else {
-          if (sentense == "") { // Check if sentense is an empty string
-            sentense = element.userName + "\r" + element.service + "\r" + element.point +
-              "\r" + element._id + "\r" + "\r";
-          } else {
-            sentense = sentense + element.userName + "\r" + element.service + "\r" +
-              element.point + "\r" + element._id + "\r" + "\r";
-          }
-        }
-      });
-      console.log(sentense)
-      await interaction.reply(sentense);
-      return;
+      const tasksString = tasksInfo.map(task => `${task.userName} ${task.service} ${task.point}`).join('\n');
+      await interaction.reply(tasksString);
     } catch (error) {
       console.error(error);
       await interaction.reply("エラーが発生しました。");
