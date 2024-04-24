@@ -16,7 +16,7 @@ module.exports = {
     .addStringOption((option) =>
       option
         .setName("explain")
-        .setDescription("補足情報")
+        .setDescription("補足情報、どのようにするかなど")
         .setRequired(true)
     ),
   execute: async function (interaction) {

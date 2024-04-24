@@ -35,7 +35,7 @@ module.exports = {
         );
         return;
       }
-      const userInfo = await takopoint.findOne({ user: interaction.user.id });
+      const userInfo = await takopoint.findOne({ user: interaction.options.getUser("user").id });
       if (userInfo == null || userInfo == undefined) {
         let point; // pointをブロックの外で定義
         if (interaction.options.getString("purpose") == "add") {
