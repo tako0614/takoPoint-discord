@@ -19,7 +19,7 @@ module.exports = {
       const tasksPromises = tasksInfo.map(async task => {
         const userInfo = await takopoint.findOne({ user: task.user }, { userName: 1 });
         console.log(userInfo);
-        return `${userInfo.userName} ${task.service} ${task.point}`;
+        return `${userInfo.userName} ${task.service} ${task.point} ${task._id}`;
       });
       const tasksStrings = await Promise.all(tasksPromises);
       const tasksString = tasksStrings.join('\n');
