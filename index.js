@@ -19,121 +19,33 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 client.once(Events.ClientReady, (c) => {
   console.log(`準備OKです! ${c.user.tag}がログインします。`);
 });
-const login = require("./commands/login.js");
-const heyFile = require("./commands/hey.js");
-const balance = require("./commands/balance.js");
-const editpoint = require("./commands/editpoint.js");
-const editservice = require("./commands/editservice.js");
-const showservice = require("./commands/showservice.js");
-const use = require("./commands/use.js");
-const tasks = require("./commands/tasks.js");
-const deleteTask = require("./commands/deleteTasks.js");
+const { commandsByName } = require("./commands");
+
+const replyWithError = async (interaction) => {
+  const payload = {
+    content: "エラーが発生しました",
+    ephemeral: true,
+  };
+  if (interaction.replied || interaction.deferred) {
+    await interaction.followUp(payload);
+    return;
+  }
+  await interaction.reply(payload);
+};
+
 client.on(Events.InteractionCreate, async (interaction) => {
-  if (interaction.commandName === heyFile.data.name) {
-    try {
-      await heyFile.execute(interaction);
-    } catch (error) {
-      console.error(error);
-      if (interaction.replied || interaction.deferred) {
-        await interaction.followUp({
-          content: "コマンド実行時にエラーになりました。",
-          ephemeral: true,
-        });
-      } else {
-        await interaction.reply({
-          content: "コマンド実行時にエラーになりました。",
-          ephemeral: true,
-        });
-      }
-    }
+  if (!interaction.isChatInputCommand()) {
+    return;
   }
-  if (interaction.commandName === login.data.name) {
-    try {
-      await login.execute(interaction);
-    } catch (e) {
-      console.error(e);
-      await interaction.reply({
-        content: "エラーが発生しました",
-        ephemeral: true,
-      });
-    }
+  const command = commandsByName.get(interaction.commandName);
+  if (!command) {
+    return;
   }
-  if (interaction.commandName === balance.data.name) {
-    try {
-      await balance.execute(interaction);
-    } catch (e) {
-      console.error(e);
-      await interaction.reply({
-        content: "エラーが発生しました",
-        ephemeral: true,
-      });
-    }
-  }
-  if (interaction.commandName === editpoint.data.name) {
-    try {
-      await editpoint.execute(interaction);
-    } catch (e) {
-      console.error(e);
-      await interaction.reply({
-        content: "エラーが発生しました",
-        ephemeral: true,
-      });
-    }
-  }
-  if (interaction.commandName === editservice.data.name) {
-    try {
-      await editservice.execute(interaction);
-    } catch (e) {
-      console.error(e);
-      await interaction.reply({
-        content: "エラーが発生しました",
-        ephemeral: true,
-      });
-    }
-  }
-  if (interaction.commandName === showservice.data.name) {
-    try {
-      await showservice.execute(interaction);
-    } catch (e) {
-      console.error(e);
-      await interaction.reply({
-        content: "エラーが発生しました",
-        ephemeral: true,
-      });
-    }
-  }
-  if (interaction.commandName === use.data.name) {
-    try {
-      await use.execute(interaction);
-    } catch (e) {
-      console.error(e);
-      await interaction.reply({
-        content: "エラーが発生しました",
-        ephemeral: true,
-      });
-    }
-  }
-  if (interaction.commandName === tasks.data.name) {
-    try {
-      await tasks.execute(interaction);
-    } catch (e) {
-      console.error(e);
-      await interaction.reply({
-        content: "エラーが発生しました",
-        ephemeral: true,
-      });
-    }
-  }
-  if (interaction.commandName === deleteTask.data.name) {
-    try {
-      await deleteTask.execute(interaction);
-    } catch (e) {
-      console.error(e);
-      await interaction.reply({
-        content: "エラーが発生しました",
-        ephemeral: true,
-      });
-    }
+  try {
+    await command.execute(interaction);
+  } catch (error) {
+    console.error(error);
+    await replyWithError(interaction);
   }
 });
 // ログインします

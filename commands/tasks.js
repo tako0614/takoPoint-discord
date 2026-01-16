@@ -9,25 +9,22 @@ module.exports = {
     .setDescription("ポイントを消費してたこに指示できます"),
 
   execute: async function (interaction) {
-    try {
-      const tasksInfo = await Tasks.find();
-      //からの配列なら
-      if (tasksInfo.length === 0) {
-        await interaction.reply("タスクはありません");
-        return;
-      }
-      const tasksPromises = tasksInfo.map(async task => {
-        const userInfo = await takopoint.findOne({ user: task.user }, { userName: 1 });
-        console.log(userInfo);
-        return `${userInfo.userName} ${task.service} ${task.point} ${task._id} ${task.explain}`;
-      });
-      const tasksStrings = await Promise.all(tasksPromises);
-      const tasksString = tasksStrings.join('\n');
-      await interaction.reply(tasksString);
-    } catch (error) {
-      console.error(error);
-      await interaction.reply("エラーが発生しました。");
+    const tasksInfo = await Tasks.find();
+    //からの配列なら
+    if (tasksInfo.length === 0) {
+      await interaction.reply("タスクはありません");
       return;
     }
+    const tasksPromises = tasksInfo.map(async (task) => {
+      const userInfo = await takopoint.findOne(
+        { user: task.user },
+        { userName: 1 },
+      );
+      console.log(userInfo);
+      return `${userInfo.userName} ${task.service} ${task.point} ${task._id} ${task.explain}`;
+    });
+    const tasksStrings = await Promise.all(tasksPromises);
+    const tasksString = tasksStrings.join("\n");
+    await interaction.reply(tasksString);
   },
 };
